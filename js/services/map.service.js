@@ -1,9 +1,11 @@
 
+const API_KEY = 'AIzaSyAzxIVlWTx09OaPGH3sYnz-brtN8-x7-84'; //TODO: Enter your API Key
 
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    geocoding
 }
 
 var gMap;
@@ -36,16 +38,24 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng);
 }
 
+function geocoding(location, type) {
+    if (type === 'normal') {
+        var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${API_KEY}`
+    } else {
+        var url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${API_KEY}`
+    }
+
+    return fetch(url).then(res => res.json())
+}
 
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = ''; //TODO: Enter your API Key
+
     var elGoogleApi = document.createElement('script');
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
-
     return new Promise((resolve, reject) => {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
