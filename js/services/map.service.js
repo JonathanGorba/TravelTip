@@ -1,5 +1,6 @@
 
 const API_KEY = 'AIzaSyAzxIVlWTx09OaPGH3sYnz-brtN8-x7-84'; //TODO: Enter your API Key
+// const API_KEY = ''; //TODO: Enter your API Key
 
 export const mapService = {
     initMap,
@@ -19,7 +20,16 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 document.querySelector('#map'), {
                 center: { lat, lng },
                 zoom: 15
+                
             })
+            gMap.addListener("click", (mapsMouseEvent) => {
+                console.log(mapsMouseEvent.latLng.toJSON());
+                const geocode= mapsMouseEvent.latLng.toJSON();
+                geocoding(geocode,'reverse').then(res=>{
+                    console.log(res);
+                });
+            });
+            
             console.log('Map!', gMap);
         })
 }
@@ -41,8 +51,10 @@ function panTo(lat, lng) {
 function geocoding(location, type) {
     if (type === 'normal') {
         var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${API_KEY}`
+        console.log('normal');
     } else {
         var url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${API_KEY}`
+        console.log('reverse');
     }
 
     return fetch(url).then(res => res.json())

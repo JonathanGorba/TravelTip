@@ -11,9 +11,9 @@ function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready');
+            console.log(mapService.geocoding('hadera','normal').then);
         })
         .catch(() => console.log('Error: cannot init map'));
-        console.log(mapService.geocoding('hadera','normal'));
         
 }
 

@@ -13,14 +13,15 @@
     <header class="main-layout flex">
         <h1>TravelTip</h1>
         <div class="search-container flex pos-center">
-            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-            <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+            <input type="text">
+            <button onclick="onPanTo()" class="btn-pan">Go</button>
+            <button onclick="onGetUserPos()" class="btn-user-pos">My Location</button>
         </div>
     </header>
     <div id="map" style="width: 100%; height: 400px;"></div>
     <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
     <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-
+    <p>Selected location: <span class="user-selected"></span></p>
     <p>You are at: <span class="user-pos"></span></p>
     <p>Locations: <span class="locs"></span></p>
 
